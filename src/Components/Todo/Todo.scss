@@ -1,0 +1,34 @@
+.card {
+  width: 100%;
+  margin:10px auto;
+  .card-body {
+    display:flex;
+    height: 100px;
+    .form-check {
+      flex:1;
+      display:flex;
+      justify-content: start;
+      align-items: center;
+    }
+    .todo-text-container {
+      flex:3;
+      display: flex;
+      justify-content: start;
+      align-items: center;
+    }
+    .todo-btn-container{
+      flex:1;
+      display: flex;
+      justify-content: end;
+      align-items: center;
+      button:first-of-type {
+        margin-right: 5px;
+      }
+      .btn-primary {
+        color: black;
+        background-color: transparent;
+        border:none;
+      }
+    }
+  }
+}
