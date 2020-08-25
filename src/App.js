@@ -3,6 +3,7 @@ import './App.scss';
 import Form from './Components/Form/Form';
 import Todo from './Components/Todo/Todo';
 import FilterButton from './Components/FilterButton/FilterButton';
+import Button from 'react-bootstrap/Button';
 import { nanoid } from 'nanoid';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -17,6 +18,12 @@ const FILTER_NAMES = Object.keys(FILTER_MAP);
 const App = ( props ) => {
   const [todos, setTodos] = useState(props.todos);
   const [filter, setFilter] = useState('All');
+  const [showTodos, setShowTodos]  = useState(false);
+
+  const toggleTodosHandler = ( ) => {
+    const doesShow = showTodos;
+    setShowTodos(!doesShow);
+  }
 
   const addTodoHandler = ( name ) => {
     const newTodo = {id: 'todo-' + nanoid(), name: name, completed: false};
@@ -48,20 +55,24 @@ const App = ( props ) => {
     setTodos(updatedTodos);
   }
 
-  const todoList = todos
-  .filter(FILTER_MAP[filter])
-  .map(todo => (
-    <Todo 
-      id={todo.id}
-      name={todo.name}
-      completed={todo.completed}
-      key={todo.id}
-      deleteTodo={deleteTodoHandler}
-      editTodo={editTodoHandler}
-      toggleCompleted={toggleCompletedHandler}
-      />
+ 
+  let todoList = [];
+  if ( showTodos ) {
+    todoList = todos
+    .filter(FILTER_MAP[filter])
+    .map(todo => (
+      <Todo 
+        id={todo.id}
+        name={todo.name}
+        completed={todo.completed}
+        key={todo.id}
+        deleteTodo={deleteTodoHandler}
+        editTodo={editTodoHandler}
+        toggleCompleted={toggleCompletedHandler}
+        />
   ));
-
+  }
+  
   const filterList = FILTER_NAMES.map( name => (
     <FilterButton 
       key={name}
@@ -70,8 +81,10 @@ const App = ( props ) => {
       setFilter={setFilter}/>
   ));
 
-  const todoNoun = todoList.length !== 1 ? 'todos' : 'todo';
+  
+  const todoNoun = todoList !== 1 ? 'todos' : 'todo';
   const headingText = `You have ${todoList.length} ${todoNoun} remaining`;
+  const btnText = showTodos === false ? 'Show Todos' : 'Hide Todos';
 
   return (
     <div className="App">
@@ -81,7 +94,15 @@ const App = ( props ) => {
         <div className="button-group">
           {filterList}
         </div>
+        <div className="show-todos-container">
           {headingText}
+          <Button 
+            type="button"
+            onClick={toggleTodosHandler}
+            variant="primary">
+              {btnText}
+          </Button>
+        </div>
         <ul>
           {todoList}
         </ul>
