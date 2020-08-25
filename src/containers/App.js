@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import './App.scss';
-import Form from './Components/Form/Form';
-import Todo from './Components/Todo/Todo';
-import FilterButton from './Components/FilterButton/FilterButton';
-import Button from 'react-bootstrap/Button';
+import Cockpit from '../components/Cockpit/Cockpit';
+import Todo from '../components/Todos/Todo/Todo';
+import FilterButton from '../components/FilterButton/FilterButton';
 import { nanoid } from 'nanoid';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -54,7 +53,6 @@ const App = ( props ) => {
     })
     setTodos(updatedTodos);
   }
-
  
   let todoList = [];
   if ( showTodos ) {
@@ -88,26 +86,16 @@ const App = ( props ) => {
 
   return (
     <div className="App">
-      <div className="App-container">
-        <h1>Todo List</h1>
-        <Form addTodo={addTodoHandler}/>
-        <div className="button-group">
-          {filterList}
-        </div>
-        <div className="show-todos-container">
-          {headingText}
-          <Button 
-            type="button"
-            onClick={toggleTodosHandler}
-            variant="primary">
-              {btnText}
-          </Button>
-        </div>
+      <Cockpit
+        headingText={headingText}
+        btnText={btnText}
+        filterList={filterList}
+        addTodo={addTodoHandler}
+        toggleTodos={toggleTodosHandler}/>
         <ul>
           {todoList}
         </ul>
       </div>
-    </div>
   )
 }
 
