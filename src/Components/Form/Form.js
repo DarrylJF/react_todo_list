@@ -23,7 +23,12 @@ const Input = ( props ) => {
               type="text"
               value={input}
               onChange={onChangeHandler}/>
-        <Button type="submit" variant="warning">Add</Button>
+        <Button 
+          type="submit"
+          variant="warning"
+          disabled={!input}>
+            Add
+        </Button>
       </Form>
   )
 }
