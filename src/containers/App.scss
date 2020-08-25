@@ -7,17 +7,6 @@
   li {
     list-style-type: none;
   }
-  .App-container {
-    width: 75%;
-    margin: 5rem auto;
-    padding: 2rem;
-    border: 1px solid grey;
-  }
-  h1 {
-    font-weight: bold;
-    text-align: center;
-    padding: 1rem;
-  }
 }
 
 .App-logo {
@@ -55,10 +44,5 @@
   }
 }
 
-.show-todos-container {
-  padding: 10px;
-  display:flex;
-  justify-content: space-between;
-  align-items: center;
-}
+
 

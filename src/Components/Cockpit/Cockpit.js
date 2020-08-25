@@ -1,4 +1,6 @@
 import React from 'react';
+import './Cockpit.scss';
+import '../Todos/Todos.scss';
 import Form from '../Form/Form';
 import Button from 'react-bootstrap/Button';
 
