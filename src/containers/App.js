@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './App.scss';
 import Cockpit from '../components/Cockpit/Cockpit';
-import Todo from '../components/Todos/Todo/Todo';
+import Todos from '../components/Todos/Todos';
 import FilterButton from '../components/FilterButton/FilterButton';
 import { nanoid } from 'nanoid';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -27,6 +27,7 @@ const App = ( props ) => {
   const addTodoHandler = ( name ) => {
     const newTodo = {id: 'todo-' + nanoid(), name: name, completed: false};
     setTodos([...todos, newTodo]);
+    setShowTodos(true);
   }
 
   const deleteTodoHandler = ( id ) => {
@@ -56,20 +57,16 @@ const App = ( props ) => {
  
   let todoList = [];
   if ( showTodos ) {
-    todoList = todos
-    .filter(FILTER_MAP[filter])
-    .map(todo => (
-      <Todo 
-        id={todo.id}
-        name={todo.name}
-        completed={todo.completed}
-        key={todo.id}
-        deleteTodo={deleteTodoHandler}
-        editTodo={editTodoHandler}
-        toggleCompleted={toggleCompletedHandler}
-        />
-  ));
+    todoList = <Todos
+      todos={todos}
+      deleteTodo={deleteTodoHandler}
+      editTodo={editTodoHandler}
+      toggleCompleted={toggleCompletedHandler}
+      filter_map={FILTER_MAP}
+      filter={filter}
+    />
   }
+  
   
   const filterList = FILTER_NAMES.map( name => (
     <FilterButton 
@@ -92,9 +89,7 @@ const App = ( props ) => {
         filterList={filterList}
         addTodo={addTodoHandler}
         toggleTodos={toggleTodosHandler}/>
-        <ul>
-          {todoList}
-        </ul>
+        {todoList}
       </div>
   )
 }
