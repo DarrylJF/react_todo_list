@@ -5,6 +5,9 @@ import Todos from '../components/Todos/Todos';
 import FilterButton from '../components/FilterButton/FilterButton';
 import { nanoid } from 'nanoid';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import classes from '../components/Cockpit/Cockpit.module.scss';
+
+console.log(classes);
 
 const FILTER_MAP = {
   All: () => true,
@@ -66,6 +69,8 @@ const App = ( props ) => {
       filter={filter}
     />
   }
+
+  console.log(todoList);
   
   
   const filterList = FILTER_NAMES.map( name => (
