@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Todo.scss';
 import Card from 'react-bootstrap/Card';
 import {Pencil} from 'react-bootstrap-icons';
@@ -8,6 +8,12 @@ import Form from 'react-bootstrap/Form';
 
 
 const Todo = ( props ) => {
+  useEffect(() => {
+    console.log('[Todo.js] useEffect');
+    return () => {
+      console.log('[Todo.js] cleanup work in useEffect')
+    };
+  });
 
   const [newName, setNewName] = useState('');
   const [isEditing, setEditing] = useState(false);
@@ -25,7 +31,7 @@ const Todo = ( props ) => {
 
   const editingTemplate = (
     <Card body>
-      <Form inline className="Form" onSubmit={onSubmitHandler}>
+      <Form inline onSubmit={onSubmitHandler}>
         <Form.Check type="checkbox"/>
           <div className="todo-text-container">
               <Form.Control 
@@ -71,7 +77,7 @@ const Todo = ( props ) => {
         </div>
   </Card>
   );
-
+  console.log('[Todo.js] rendering...')
   return <li>{isEditing ? editingTemplate : viewTemplate}</li>
 }
 

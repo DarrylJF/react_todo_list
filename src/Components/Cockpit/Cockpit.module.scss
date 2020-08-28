@@ -1,18 +1,22 @@
 .Cockpit {
-  width: 75%;
-  margin: 5rem auto;
+  width: 75vw;
+  margin: 2rem auto;
   padding: 2rem;
-  border: 1px solid grey;
-}
-h1 {
-  font-weight: bold;
-  text-align: center;
-  padding: 1rem;
-}
-
-.show-todos-container {
-  padding: 10px;
-  display:flex;
-  justify-content: space-between;
-  align-items: center;
+  border: 1px solid black;
+  &__title {
+    font-weight: bold;
+  }
+  &__buttonGroup {
+    text-align: center;
+    padding: .5rem;
+    margin: 1.5rem 1.5rem;
+    & button:not(:last-child) {
+      margin-right: 2px;
+    }
+  }
+  &__showTodos {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }

@@ -1,9 +1,16 @@
-import React, {useState } from 'react';
+import React, {useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import './Form.scss';
 
-const Input = ( props ) => {
+const Input = props => {
+  useEffect(() => {
+    console.log('[Form.js] useEffect');
+    return () => {
+      console.log('[Form.js] cleanup work in useEffect')
+    };
+  }, []);
+
   const [input, setInput] = useState('');
 
   const onChangeHandler = ( event ) => {
@@ -18,7 +25,7 @@ const Input = ( props ) => {
 
   
   return (
-      <Form inline className="Form" onSubmit={onSubmitHandler}>
+      <Form inline onSubmit={onSubmitHandler}>
         <Form.Control 
               type="text"
               value={input}

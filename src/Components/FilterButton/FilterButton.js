@@ -1,8 +1,16 @@
-import React from 'react';
-import './FilterButton.scss';
+import React, {useEffect} from 'react';
 import Button from 'react-bootstrap/Button';
 
-const FilterButton = ( props ) => {
+const FilterButton = props => {
+  
+  useEffect(() => {
+    console.log('[FilterButton.js] useEffect');
+    return () => {
+      console.log('[FilterButton.js] cleanup work in useEffect')
+    };
+  }, []);
+
+  console.log('[FilterButton.js] rendering...')
   return (
     <Button
       variant="success" 

@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
-import './App.scss';
+import React, { useState, useEffect } from 'react';
+import Auxillary from '../hoc/Auxillary';
+import withClass from '../hoc/withClass';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { nanoid } from 'nanoid';
 import Cockpit from '../components/Cockpit/Cockpit';
 import Todos from '../components/Todos/Todos';
 import FilterButton from '../components/FilterButton/FilterButton';
-import { nanoid } from 'nanoid';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import classes from '../components/Cockpit/Cockpit.module.scss';
+import classes from './App.module.scss';
 
-console.log(classes);
 
 const FILTER_MAP = {
   All: () => true,
@@ -18,13 +18,26 @@ const FILTER_MAP = {
 const FILTER_NAMES = Object.keys(FILTER_MAP);
 
 const App = ( props ) => {
+  useEffect(() => {
+    console.log('[App.js] useEffect');
+    return () => {
+      console.log('[App.js] cleanup work in useEffect')
+    };
+  });
+
   const [todos, setTodos] = useState(props.todos);
   const [filter, setFilter] = useState('All');
   const [showTodos, setShowTodos]  = useState(false);
+  const [showCockpit, setShowCockpit] = useState(true);
 
   const toggleTodosHandler = ( ) => {
     const doesShow = showTodos;
     setShowTodos(!doesShow);
+  }
+
+  const toggleCockpitHandler = () => {
+    const doesShow = showCockpit;
+    setShowCockpit(!doesShow);
   }
 
   const addTodoHandler = ( name ) => {
@@ -69,9 +82,6 @@ const App = ( props ) => {
       filter={filter}
     />
   }
-
-  console.log(todoList);
-  
   
   const filterList = FILTER_NAMES.map( name => (
     <FilterButton 
@@ -81,23 +91,32 @@ const App = ( props ) => {
       setFilter={setFilter}/>
   ));
 
-  
+  const btnStyle = {
+    marginTop: '1rem'
+  };
+
   const todoNoun = todoList !== 1 ? 'todos' : 'todo';
   const headingText = `You have ${todoList.length} ${todoNoun} remaining`;
-  const btnText = showTodos === false ? 'Show Todos' : 'Hide Todos';
+  const btnTxt = showCockpit ? 'Hide Cockpit' : 'Show Cockpit';
+  console.log('[App.js] rendering...');
 
   return (
-    <div className="App">
+    <Auxillary>
+      <button style={btnStyle} onClick={toggleCockpitHandler}>
+        <span>{btnTxt}</span>
+      </button>
+      {showCockpit ?
       <Cockpit
         headingText={headingText}
-        btnText={btnText}
         filterList={filterList}
         addTodo={addTodoHandler}
-        toggleTodos={toggleTodosHandler}/>
+        toggleTodos={toggleTodosHandler}
+        showTodos={showTodos}
+        /> : null}
         {todoList}
-      </div>
+      </Auxillary>
   )
 }
 
-export default App;
+export default withClass(App, classes.App);
 

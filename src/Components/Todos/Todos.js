@@ -1,7 +1,15 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Todo from './Todo/Todo'
 
-const Todos = ( props ) => {
+const Todos = props => {
+  useEffect(() => {
+    console.log('[Todos.js] useEffect');
+    return () => {
+      console.log('[Todos.js] cleanup work in useEffect')
+    };
+  });
+
+  console.log('[Todos.js] rendering...')
   return props.todos
     .filter(props.filter_map[props.filter])
     .map(todo => {
@@ -18,5 +26,5 @@ const Todos = ( props ) => {
       );
     });
   };
-
+  
 export default Todos;
